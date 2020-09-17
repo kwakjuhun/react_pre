@@ -1,90 +1,30 @@
 import React, { Component } from 'react';
+import Navigation from "./components/Navigation";
+import Header from "./components/Header";
+import Body from "./components/Body";
+import ContentCreate from "./components/ContentCreate";
 import './App.css';
 
-class Navigation extends Component{
-  render(){
-    var list = [];
-    var i = 0;
-    while(i < this.props.data.length){
-      var data = this.props.data[i];
-      list.push(
-        <li key={data.id}>
-          <a href={data.id+'.html'} onClick={function(id, e){
-            e.preventDefault(); // 페이지 전환 막기
-            this.props.onSelect(id);
-          }.bind(this, data.id)}>
-            {data.title}
-          </a>
-        </li>)
-      i = i + 1;
-    }
-    return(
-      <nav>
-        <ol>
-          {list}
-        </ol>
-      </nav>
-    )
-  }
-}
-class Header extends Component{
-  render(){
-    return(
-      <header>
-        <h1>{this.props.title}</h1>
-        World wide web
-      </header>
-    )
-  }
-}
-class Body extends Component{
-  render(){
-    return(
-      <article>
-        <h2>{this.props.data.title}</h2>
-        {this.props.data.desc}
-      </article>
-    )
-  }
-}
-class ContentCreate extends Component{
-  state = {
-    title:'',
-    desc:''
-  }
-  changeFormHandler(e){
-    this.setState({[e.target.name]:e.target.value});
-          // name에 따라 값이 달라짐
-  }
-  render(){
-    return (
-      <article>
-        <form onSubmit={function(e){
-          e.preventDefault();
-          this.props.onSubmit(this.state);
-        }.bind(this)}>
-          <p><input type="text" placeholder="title" name="title"
-           value={this.state.title} onChange={this.changeFormHandler.bind(this)}></input></p>
-          <p><textarea placeholder="description" name="desc"
-           value={this.state.desc} onChange={this.changeFormHandler.bind(this)}></textarea></p>
-          <p><input type="submit"></input></p>
-        </form>
-      </article>
-    )
-  }
 
-}
+
+
+
+
 class App extends Component{
-  last_content_id=3;
-  state = {
-    mode:'read',
-    selected_content_id:1,
-    contents:[
-      {id:1, title:'HTML', desc:'HTML is for infomation'},
-      {id:2, title:'CSS', desc:'CSS is for infomation'},
-      {id:3, title:'JavaScript', desc:'Javascript is for infomation'},
-    ]
+  constructor(props){  // 컴포넌트가 실행되면 젤 먼저 실행    초기화를 담당
+    super(props);
+    this.last_content_id=3;
+    this.state = {
+      mode:'read',
+      selected_content_id:1,
+      contents:[
+        {id:1, title:'HTML', desc:'HTML is for infomation'},
+        {id:2, title:'CSS', desc:'CSS is for infomation'},
+        {id:3, title:'JavaScript', desc:'Javascript is for infomation'},
+      ]
+    }
   }
+  debugger;
   getSelectedContent(){
     var i = 0;
     while(i < this.state.contents.length){
