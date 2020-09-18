@@ -3,6 +3,7 @@ import Navigation from "./components/Navigation";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import ContentCreate from "./components/ContentCreate";
+import ContentUpdate from "./components/ContentUpdate";
 import './App.css';
 
 
@@ -57,6 +58,10 @@ class App extends Component{
 
           });
       }.bind(this)}></ContentCreate>
+    } else if(this.state.mode === 'update'){
+      return <ContentUpdate data={this.getSelectedContent()}
+      
+      ></ContentUpdate>
     }
   }
   getControlComponent(){
@@ -67,7 +72,8 @@ class App extends Component{
       }.bind(this)}>create </a>,
       <a key="2" href="/update" onClick={function(e){
         e.preventDefault();
-      }}>update </a>,
+        this.setState({mode:'update'})
+      }.bind(this)}>update </a>,
       <input key="3" type="button" href="/delete" onClick={function(){
         var newContents = this.state.contents.filter(function(el){
           if(el.id !== this.state.selected_content_id){
@@ -90,7 +96,6 @@ class App extends Component{
         }.bind(this)}
           title="Web"></Header>
         <Navigation onSelect={function(id){
-          console.log('App',id);
           this.setState({selected_content_id:id});
           // this.state.selected_content_id의 값을 id로 바꿔라
         }.bind(this)}
