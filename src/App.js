@@ -55,12 +55,20 @@ class App extends Component{
           contents:newContents,
           selected_content_id:this.last_content_id,
           mode:'read'
-
-          });
+        });
       }.bind(this)}></ContentCreate>
     } else if(this.state.mode === 'update'){
       return <ContentUpdate data={this.getSelectedContent()}
-      
+        onSubmit={function(formData){
+          var newContents = Object.assign([], this.state.contents);
+          newContents[this.last_content_id-1].title = formData.title; 
+          newContents[this.last_content_id-1].desc = formData.desc;
+          this.setState({
+            contents:newContents,
+            selected_content_id:this.last_content_id,
+            mode:'read'
+          });
+        }.bind(this)}
       ></ContentUpdate>
     }
   }
